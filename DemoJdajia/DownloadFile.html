@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+	</nav>
+	<!--<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">headers</span>
+		<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+	</div>-->
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileUrl</span>
+		<input type="text" id="fileUrl" class="form-control" placeholder="分段下載的完整URL" aria-describedby="basic-addon1">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileId</span>
+		<input type="text" id="fileId" class="form-control" placeholder="下載文件ID" aria-describedby="basic-addon1">
+	</div>
+	<!--<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">filePath</span>
+		<input id="fileFolder" name="fileFolder" type="file" webkitdirectory>
+		<input id="tips" name="tips">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">filePath</span>
+		<input type="text" class="form-control" placeholder="下載文件根目錄" aria-describedby="basic-addon1">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileName</span>
+		<input type="text" class="form-control" placeholder="下載文件名，包含文件後綴" aria-describedby="basic-addon1">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileSize</span>
+		<input type="text" class="form-control" placeholder="下載文件檔案大小" aria-describedby="basic-addon1">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileName</span>
+		<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+	</div>-->
+	<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="dlFile()">下載</button>
+	</div>
+	<div id="result_txt" style="position:relative; margin-top: 10px; margin-left:10px;">
+	</div>
+
+</div>
+</body>
+	<script>
+/*
+	document.getElementById('fileFolder').onchange = function(e) {
+		actual_filesSize=0;
+		filesCount = 0;
+		//是否选中文件夹  文件夹是否为空  数量和大小是否超过限制
+		//判断是否选中文件
+		  var file=$("#fileFolder").val();
+		  if(file!=""){
+		  var files = e.target.files;            // files是选中的文件夹数组
+		  //文件数量
+		  actual_filesCount = files.length;
+		  if(actual_filesCount > filesCount){
+		console.log('123');
+		  $("#tips").val(actual_filesCount);
+		  document.getElementById("tips").style.color="red";
+		  return;
+		  }
+		  //修改tips文本框内容
+		  $("#tips").text(actual_filesCount+tip);
+		  document.getElementById("tips").style.color="black";
+		  
+		  for (var i = 0; i< files.length; ++i){
+		  actual_filesSize=actual_filesSize+files[i].size;
+		  if(actual_filesSize > filesSize){
+		  $("#tips").text(msg4+(filesSize/1024/1024)+"M");
+		  document.getElementById("tips").style.color="red";
+		  return;
+		  }
+		  }
+		  }else{
+		  $("#tips").text(msg);
+		  document.getElementById("tips").style.color="red";
+		  return;
+		  }
+	};*/
+	
+	function dlFile(){ // call print api
+		//console.log('QQ');
+
+		//https://www.google.com.tw/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+		
+		var fileUrl=$("#fileUrl").val();
+		var fileId=$("#fileId").val();
+		
+		da.downloadFileByPart({               
+			headers:{"Content-Type":"application/jpeg","testHeaders":"12321"},
+			fileUrl: fileUrl, //"https://www.google.com.tw/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",			
+			fileId: fileId, //"fbd498fb-9dd8-4054-a53b-6f905f6fd0d5",
+			filePath:"/home/download/",
+			fileName:"googlelogo_color_272x92dp.png",
+			fileSize:102400,
+			isShowView:true,
+			isEOF:false,
+			success: function (res) {
+				var text = res.fileName ;
+				
+				$('#result_txt').text(text);
+			},
+			fail: function () {
+				$('#result_txt').text('dlFile fail');
+			},
+			error: function () {
+				alert("------error------");
+			}
+		});
+		
+	}
+
+	</script>
+</html>

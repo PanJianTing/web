@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+		
+	</nav>
+	
+<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="recordVideoAndUpload1()">錄影與上傳(錄製影片)</button>
+			<button class="btn btn-primary" onclick="recordVideoAndUpload2()">錄影與上傳(選擇影片)</button>
+			<div style="margin-top: 30px; border: 1px solid; width: 90%; height: 10px;">
+			  <div id="progress" style="width:0;background-color:#18acdc;height: 8px;"></div>
+			</div>
+	</div>
+</div>
+</body>
+	<script>
+	
+	/**
+ * 拍影片或選擇影片並回傳的接口
+ * type:1與2，1是錄製影片 2是選影片
+ * resolution:解析度，3種選擇 1.1280x720 2.960x540 3.640x480
+ * uploadUrl:上傳影片的地址(完整的地址，含http或https)
+ * progressCallBack:回傳上傳進度的callback
+ */
+	function recordVideoAndUpload1(){
+	    da.ready(function () {
+            da.video({
+                type: 1,
+                resolution: 2,
+                uploadUrl:'http://122.146.130.115:8080/DemoJdajia',
+                progressCallBack: 'callBack',
+                success: function (res) {
+                    alert('record success');
+					$("#progress").css("width",0)
+                }, fail: function () {
+                    alert('record fail');
+					$("#progress").css("width",0)
+                }
+            });
+        })
+	}
+	
+	
+	function recordVideoAndUpload2(){
+	    da.ready(function () {
+            da.video({
+                type: 2,
+                resolution: 3,
+                uploadUrl: 'http://122.146.130.115:8080/DemoJdajia',
+                progressCallBack: 'callBack',
+                success: function (res) {
+                    alert('selected success');
+					$("#progress").css("width",0)
+                }, fail: function () {
+                    alert('selected fail');
+					$("#progress").css("width",0)
+                }
+            });
+        })
+	}
+	
+	function callBack(res){
+	 var progress = Math.round(res*100)+"%";
+	 $("#progress").css("width",progress)
+	}
+	
+	</script>
+</html>

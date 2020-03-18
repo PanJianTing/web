@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+		
+	</nav>
+	
+<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="switchScreen('1')">竖屏</button>
+	</div>
+	<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="switchScreen('0')">横屏</button>
+	</div>
+	<div id="result" style="position:relative; margin-top: 10px; margin-left:10px;word-break: break-all;"></div>
+</div>
+</body>
+	<script>
+	
+ /**
+ *切换横竖屏接口// 有参数
+ *参数说明: 传入switchScreen为key的 value是 0或者1 (数字必须是字符串形式)字段 1代表竖屏 0 代表横屏
+ * 无返回
+ */
+	function switchScreen(direction){
+	    da.ready(function () {
+            da.switchScreen({
+			    switchScreen:direction,
+				isCloseFull:'0',
+                success: function () {
+                }, fail: function () {
+                }
+            });
+        })
+	}
+	
+	</script>
+</html>

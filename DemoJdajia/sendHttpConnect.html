@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+		
+	</nav>
+	
+<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="sendHttpConnect()">由手機打向產品或移動後端的接口</button>
+	</div>
+	<div id="result" style="position:relative; margin-top: 10px; margin-left:10px;word-break: break-all;"></div>
+</div>
+</body>
+	<script>
+	
+ /**
+ * 由手機打向產品或移動後端的接口。
+ * url:url(含Http，若沒https or http 則會自己補上移動網址http(s):ip:port/url)
+ * type:GET/POST(注意：需大寫)
+ * data:傳遞參數
+ */
+ 
+ 
+	function sendHttpConnect(){
+	
+	
+	    da.ready(function () {
+            da.sendHttpConnect({
+			    url:"http://122.146.130.115:8080/mbiz-e/cosmos/business/getCategoryList.json",
+                type: "GET",
+                data: {
+				"access_token": "77e69d96-3800-4f8e-ab3b-ae96c40d68dd",
+                "enterpriseID": "LeaderGP32_IMG",
+                "personID": "6249664296492876901",
+                "companyID": "695616997026708246106569",
+                "locale": "zh_TW",
+                "cmURL": "http://10.40.42.107/CMAPI/CMAPIService.svc/cm"},
+                success: function (res) {
+                    alert('success');
+					$("#result").text(JSON.stringify(res));
+                }, fail: function () {
+                    alert('fail');
+                }
+            });
+        })
+	}
+	
+	
+	
+	</script>
+</html>

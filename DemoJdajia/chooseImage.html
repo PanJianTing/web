@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	        .mTimecard_card_picli img{
+            width:60px;
+            height:60px;
+        }
+        .mTimecard_card_pic{
+            border-bottom:1px solid #e1e2e6;
+        }
+        .mTimecard_card_picbox li{
+            margin-top:15px;
+            margin-bottom:15px;
+        }
+        .mTimecard_card_picli{
+            width:33.333%;
+            text-align:left;
+            position:relative;
+        }
+        .mTimecard_card_pic .mTimecard_card_remarkTitle{
+            line-height: 44px;
+            padding-right: 7px;
+        }
+        .mTimecard_card_picbox .mTimecard_card_deleteimg{
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            left: 50px;
+            top: -4px;
+        }
+	</style>
+</head>
+<body>
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+		
+	</nav>
+	
+<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="chooseImage1()">選擇圖片(拍照)</button>
+			<button class="btn btn-primary" onclick="chooseImage2()">選擇圖片(相簿)</button>
+	</div>
+	              <div class="mTimecard_card_remarkAndpic">
+                    <div class="mTimecard_card_pic">
+                        <ul class="mTimecard_card_picbox clearfixOverflow" id="mTimecard_card_pic1">
+                            <li id="mTimecard_card_picli" class="left mTimecard_card_picli"><img src="${ctxPath}/modulev1/portalHtml5/images/mCard.svg" >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+</div>
+</body>
+	<script>
+    var mCommon_basicCrmForm_imageArray=[];
+/**
+ * 选择图片
+ * @param v.type == 1 拍照,2相册
+ * @param v.current  目前選的數量（預設 0）
+ * @param v.max      相冊多選的最大數量（建議 限制為 5 張以內）
+ * @param v.isReturnOrgUrls 照片路徑是否需為原始圖（ 0:否，1:是，預設為0）
+ * @param v.thumbnailWidth 照片壓縮寬度（預設 300）
+ */
+	function chooseImage1(){
+	          if (da.djJsReady) {
+                da.chooseImage({
+                    type: 1,
+                    current: 0,
+                    max: 1,
+                    isReturnOrgUrls: 1,
+                    success: function (res) {
+                       alert("success");
+					   getImg(res);
+                     },
+                    fail: function (res) {
+                       alert("fail");
+                    }
+                })
+            }
+	}
+	
+	function chooseImage2(){
+	          if (da.djJsReady) {
+                da.chooseImage({
+                    type: 2,
+                    current: 0,
+                    max: 1,
+                    isReturnOrgUrls: 1,
+                    success: function (res) {
+                      alert("success");
+					  getImg(res);
+                     },
+                    fail: function (res) {
+                      alert("fail");
+                    }
+                })
+            }
+	}
+
+	function getImg(res) {
+            var path = res[0].filePath.substring(8);
+            var index = path.lastIndexOf("\/");
+            var imgObj = {
+                file_name: path.substring(index + 1, path.length),
+                content: res[0].thumbData//base64格式数据
+            };
+
+            //获取文件后缀名
+            var fileExtension = imgObj.file_name.substring(imgObj.file_name.lastIndexOf('.') + 1);
+            if (fileExtension == 'mp4' || fileExtension === 'MOV') {
+                //IOS上傳視頻文件MP4,會壓縮成.MOV格式
+                alert('只能選擇照片喔!!')
+            } else {
+               // var blob =dataURItoBlob(res[0].thumbData);
+                showImg(res[0].thumbData, name);//显示图片
+            }
+        }
+
+		
+	 	
+       function showImg(images, name) {
+
+           //base64
+            var imageBase="data:image/jpeg;base64,"+images;
+
+
+                for (var i = 0; i < mCommon_basicCrmForm_imageArray.length; i++) {
+                    if (mCommon_basicCrmForm_imageArray[i].image === imageBase) {
+                        console.log('该照片已存在');
+                        return;
+                    }
+                }
+
+                var picContentDom = $('<li class="left mTimecard_card_picli mTimecard_card_eachli">' +
+                    '<img class="mTimecard_card_eachimg" src="'+imageBase+'" ></li>');
+
+                picContentDom.data("name", name);
+                picContentDom.insertBefore($("#mTimecard_card_picli"));
+
+                setTimeout(function () {
+                    mCommon_basicCrmForm_imageArray = [];
+                    $('.mTimecard_card_eachli').each(function () {
+                        var imgBase64 = $(this).find(".mTimecard_card_eachimg").attr("src");
+                        var imgName = $(this).data("name");
+                        mCommon_basicCrmForm_imageArray.push({image: imgBase64, name: imgName});
+                    });
+                }, 200);
+
+                if ($('.mTimecard_card_eachli').length >= 6) {
+                    $('#mTimecard_card_picli').hide();
+                }
+		}
+	
+	
+
+	
+	</script>
+</html>

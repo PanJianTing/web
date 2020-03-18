@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>註冊</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <!--屏幕宽度等于设备宽度-->
+    <meta content="blue" name="apple-mobile-web-app-status-bar-style" />
+    <!--指定的iphone中safari顶端的状态条的样式-->
+    <meta content="telephone=no" name="format-detection" />
+    <!--ios告诉设备忽略将页面中的数字识别为电话号码-->
+    <link rel="stylesheet" href="./css/common20150324.css" />
+    <!--跨平台公用css-->
+    <link rel="stylesheet" href="./css/mCommon20150108.css" />
+    <!--公用css-->
+    <script src="./js/jquery-1.11.0.min.js"></script>
+    <!--基础js-->
+    <script src="./js/fastclick.js"></script>
+    <!--基础js-->
+    <script src="./js/mCommon20150212.js"></script>
+    <!--公用js-->
+    <link rel="stylesheet" href="./css/mCommon_frameContent15.css" />
+    <link rel="stylesheet" href="./css/mCommon_basicBottomAdver.css" />
+    <link rel="stylesheet" href="./css/mCommon_basicFlowChart.css" />
+    <link rel="stylesheet" href="./css/mCommon_controlFormGroup.css" />
+	<!--大家js-->
+	<script src="./js/jdajia.js"></script>
+    <!--固定一屏引入-->
+    <script src="./js/mCommon_jsFixedOneScreen.js" type="text/javascript" charset="utf-8"></script>
+    <!--遮罩层引入-->
+    <link rel="stylesheet" type="text/css" href="./css/mCommon_basicMask.css" />
+    <script src="./js/mCommon_basicMask.js" type="text/javascript" charset="utf-8"></script>
+	 <!--loading引入-->
+	<link rel="stylesheet" href="./css/mCommon_basicLoading.css"/>
+    <script src="./js/mCommon_basicLoading.js"></script>
+	<!--無確認取消功能提示訊息 -->
+    <link rel="stylesheet" type="text/css" href="./css/mCommon_controlPagePopupPrompt.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/mCommon_controlPagePopupPromptModal.css"/>
+    <script src="./js/mCommon_controlPagePopupPromptModal.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<style>
+.register_grid {
+	height: 70px;
+	padding: 0 15px;
+}
+.register_input {
+	text-align: left;
+	border: none;
+	height: 32px;
+	padding-left: 10px;
+	width: 95%;
+}
+.register_buttom {
+	border: 1px solid #d9d9d9;
+	font-size: 14px;
+	border-radius: 4px;
+	height: 32px;
+	width: 100%;
+	color: rgba(0,0,0,.25);
+	background-color: #f5f5f5;
+	border-color: #d9d9d9;
+}
+.register_buttom_ok {
+	color: #fff;
+	background-color: #1890ff;
+	border-color: #1890ff;
+	transition: .3s;
+}
+.register_label {
+	font-size: 16px;
+	float: left;
+	width: 29%;
+	line-height: 35px;
+}
+.register_span {
+	font-size: 14px;
+	float: right;
+	width: 70%;
+}
+.register_error_msg {
+	display: none;
+	margin-left: 30%;
+	color: #f5222d;
+	font-size: 13px;
+}
+.register_div_box{
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+	overflow-x: hidden;
+}
+.checkbox-inner {
+	position:relative;
+	top:0;
+	left:0;
+	display:block;
+	width:16px;
+	height:16px;
+	border:1px solid #d9d9d9;
+	border-radius:2px;
+	background-color:#fff;
+	transition:.3s;
+}
+.checkbox-inner::after {
+	transform:rotate(45deg) scale(0);
+	position:absolute;
+	left:4.57142857px;
+	top:1.14285714px;
+	display:table;
+	width:5.71428571px;
+	height:9.14285714px;
+	border:2px solid #fff;
+	border-top:0;
+	border-left:0;
+	content:' ';
+	transition:.1s cubic-bezier(.71,-.46,.88,.6),opacity .1s;
+	opacity:0;
+}
+.checkbox-checked .checkbox-inner {
+	background-color:#1890ff;
+	border-color:#1890ff;
+}
+.checkbox-checked .checkbox-inner::after {
+	transform:rotate(45deg) scale(1);
+	position:absolute;
+	display:table;
+	border:2px solid #fff;
+	border-top:0;
+	border-left:0;
+	content:' ';
+	transition:.2s cubic-bezier(.12,.4,.29,1.46) .1s;
+	opacity:1;
+}
+.checkbox-input {
+	position:absolute;
+	left:23px;
+	opacity:0;
+	width:16px;
+	height:16px;
+}
+.checkbox-checked::after {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	border-radius:2px;
+	border:1px solid #1890ff;
+	content:'';
+	-webkit-animation:.36s ease-in-out both antCheckboxEffect;
+	animation:.36s ease-in-out both antCheckboxEffect;
+	visibility:hidden;
+}
+
+.checkbox_outer{
+    width: 16px;
+    height: 16px;
+    margin: 0 7px 0 7px;
+}
+</style>
+
+<body>
+  <div class="mCommon_frameContent15_page mCommon_basicCrmForm">
+    <div class="mCommon_basicFlowChart_box" style="padding-top: 7%;">
+      <div id="companyName" class="register_grid">
+        <label class="register_label">
+          <i class="font_red">*</i>
+          <span>公司</span>
+		</label>
+        <span class="register_span">
+          <div class="register_div_box">
+            <input placeholder="請輸入您的公司名稱" class="register_input" />
+		  </div>
+        </span>
+      </div>
+      <div id="email" class="register_grid">
+        <label class="register_label">
+          <i class="font_red">*</i>
+          <span>電子信箱</span>
+		</label>
+        <span class="register_span">
+          <div class="register_div_box">
+            <input placeholder="請輸入E-mail,收取開通帳號mail" class="register_input" />
+		  </div>
+        </span>
+        <span id="email_error_msg1" class="register_error_msg">請輸入正確Email</span>
+        <span id="email_error_msg2" class="register_error_msg">Email重複</span>
+	  </div>
+      <div id="vaildCode" class="register_grid">
+        <label class="register_label">
+          <i class="font_red">*</i>
+          <span>驗證碼</span>
+		</label>
+        <span style="display: flex;" class="register_span">
+          <button style="margin-right: 5px;height:34px;width: 70%;" class="register_buttom" disabled onclick="getVaildCode()">獲取驗證碼</button>
+          <div class="register_div_box">
+            <input placeholder="請輸入驗證碼" class="register_input" />
+		  </div>
+        </span>
+      </div>
+      <div id="password" class="register_grid">
+        <label class="register_label">
+          <i class="font_red">*</i>
+          <span>密碼</span></label>
+        <span class="register_span">
+          <div class="register_div_box">
+            <input placeholder="密碼需6-24碼,需含英文及數字" class="register_input" type="password" />
+		  </div>
+        </span>
+        <span class="register_error_msg">密碼需6-24碼,需含英文及數字</span>
+	  </div>
+      <div id="password_confirm" class="register_grid">
+        <label class="register_label">
+          <i class="font_red">*</i>
+          <span>重複密碼</span></label>
+        <span class="register_span">
+          <div class="register_div_box">
+            <input placeholder="請再次輸入密碼" class="register_input" type="password" />
+		  </div>
+        </span>
+        <span class="register_error_msg">密碼不相符</span></div>
+      <div id="agree" class="register_grid" style="font-size: 14px; word-break: keep-all;display: flex;">
+        <div style="display: flex;">
+          <i class="font_red">*</i>
+          <span class="checkbox_outer">
+            <input class="checkbox-input" type="checkbox">
+            <span class="checkbox-inner"></span>
+          </span>
+          <span>已閱讀並同意</span></div>
+        <div>
+          <a onclick="goPrivacyPage('https://market.digiwincloud.com/assets/legal/index-tw.html')" style="color:#1890ff;font-size: 13px;"/>《鼎捷雲用戶使用協議》</a>
+          <a onclick="goPrivacyPage('http://www.digiwin.com/tw/legal.html')"  style="color:#1890ff;font-size: 13px;"/>《隱私權聲明》</a>
+		</div>
+      </div>
+      <div class="register_grid">
+        <button id="register" disabled class="register_buttom" onclick="submit()">註冊</button>
+	  </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+var iamUrl = "http://iam-paas.digiwincloud.com.cn" //"http://192.168.9.27:32511"  
+var emcUrl = "http://emc-paas.digiwincloud.com.cn"; //"https://emc-test.digiwincloud.com"
+var timeStamp;
+var isVaildCodeCountDown = false;
+var userToken = "";
+
+$().ready(function() {
+
+    $("#email input").keyup(function(e) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        $("#email_error_msg2").css('display', 'none');
+        timeStamp = e.timeStamp;
+        setTimeout(function() {
+            if (timeStamp - e.timeStamp == 0) {
+                if (regex.test(e.target.value)) {
+                    checkEmail();
+                    $("#email_error_msg1").css('display', 'none');
+                } else {
+                    $("#vaildCode button").removeClass("register_buttom_ok");
+                    $("#vaildCode button").attr("disabled", true);
+                    $("#email_error_msg1").css('display', 'block');
+                    checkFeild();
+                }
+            }
+        },500);
+    });
+
+    $("#password input").keyup(function(e) {
+        var regex = /^(?=^.{6,24}$)((?=.*[A-Za-z0-9])(?=.*[a-zA-Z])(?=.*[0-9]))^.*$/;
+        if (regex.test(e.target.value)) {
+            $("#password").find(".register_error_msg").css('display', 'none');
+        } else {
+            $("#password").find(".register_error_msg").css('display', 'block');
+        }
+        checkFeild();
+    });
+
+    $("#password_confirm input").keyup(function(e) {
+        if (e.target.value === $("#password input").val()) {
+            $("#password_confirm").find(".register_error_msg").css('display', 'none');
+        } else {
+            $("#password_confirm").find(".register_error_msg").css('display', 'block');
+        }
+        checkFeild();
+    });
+
+    $("#companyName,#vaildCode").find("input").keyup(function(e) {
+        checkFeild();
+    });
+
+    $(".checkbox-inner").click(function() {
+        if ($(".checkbox_outer").hasClass("checkbox-checked")) {
+            $(".checkbox_outer").removeClass("checkbox-checked");
+        } else {
+            $(".checkbox_outer").addClass("checkbox-checked");
+        }
+        checkFeild();
+    });
+})
+
+// 獲取驗證碼
+function getVaildCode() {
+    $("#vaildCode button").removeClass("register_buttom_ok");
+    $("#vaildCode button").attr("disabled", true);
+    isVaildCodeCountDown = true;
+    var second = 60;
+    var time = setInterval(function() {
+        if (second > 0) {
+            $("#vaildCode button").text(second + "秒倒數");
+            second--;
+        } else {
+            isVaildCodeCountDown = false;
+            $("#vaildCode button").text("獲取驗證碼");
+            vaildCodeBtnStatus();
+            clearInterval(time);
+        }
+    },1000);
+
+    var url = emcUrl + "/api/emc/v1/verificationCode/email/" + $("#email input").val() + "/register";
+    var header = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    var body = null;
+    var success = function(json) {
+        console.log(json);
+        if (json.result === 'success') {
+            showWindow('驗證碼發送成功', '請確認驗證碼並填入');
+        } else {
+            showWindow('驗證碼發送失敗', json.result);
+        }
+    };
+
+    var fail = function() {
+        showDialog("網路異常")
+    };
+
+    httpRequest(url, header, body, 'POST', 'json', success, fail);
+
+}
+
+// 檢查email是否註冊過
+function checkEmail() {
+
+    var url = iamUrl + '/api/iam/v2/user/email/exist';
+    var header = {
+        'Content-Type': 'application/json'
+    };
+    var body = JSON.stringify({
+        email: $("#email input").val()
+    });
+    var success = function(json) {
+        if (json.isRegister) {
+            $("#email_error_msg2").css('display', 'block');
+        } else {
+            $("#email_error_msg2").css('display', 'none');
+        }
+        vaildCodeBtnStatus();
+        checkFeild();
+    };
+
+    var fail = function() {
+        showDialog("網路異常")
+    };
+
+    httpRequest(url, header, body, 'POST', 'json', success, fail);
+}
+
+// 檢查是否可以獲取驗證碼
+function vaildCodeBtnStatus() {
+    if ($("#email_error_msg1").css('display') === 'none' && $("#email_error_msg2").css('display') === 'none' && !isVaildCodeCountDown) {
+        $("#vaildCode button").addClass("register_buttom_ok");
+        $("#vaildCode button").attr("disabled", false);
+    } else {
+        $("#vaildCode button").removeClass("register_buttom_ok");
+        $("#vaildCode button").attr("disabled", true);
+    }
+}
+
+// 檢查所有欄位是否填寫完畢且正確
+function checkFeild() {
+    var canRegister = true;
+
+    for (var i = 0; i < $(".register_input").length; i++) {
+        if ($(".register_input").eq(i).val() == "" || $(".register_error_msg").eq(i).css("display") == 'block') {
+            canRegister = false;
+            break;
+        }
+    }
+    if (!$(".checkbox_outer").hasClass("checkbox-checked")) {
+        canRegister = false;
+    }
+    if (canRegister) {
+        $("#register").addClass("register_buttom_ok");
+        $("#register").attr("disabled", false);
+    } else {
+        $("#register").removeClass("register_buttom_ok");
+        $("#register").attr("disabled", true);
+    }
+}
+
+// 獲取userToken
+function getUserToken() {
+    var url = iamUrl + '/api/iam/v2/identity/login';
+    var header = {
+        'Content-Type': 'application/json'
+    };
+   /* var body = JSON.stringify({
+        userId: "digiwin",
+        identityType: "token",
+        tenantId: "digiwin",
+        password: "digiwin"
+    });*/
+      var body = JSON.stringify({
+ 	userId:"digimobileAdmin",
+ 	identityType:"token",
+ 	tenantId:"digimobileAdmin",
+ 	password:"digiwinbiz"});
+    var success = function(json) {
+        console.log(json);
+        userToken = json.token;
+    };
+
+    var fail = function(msg) {
+	    mCommon_basicLoadingRemove();
+        showDialog("網路異常")
+    };
+
+    httpRequest(url, header, body, 'POST', 'json', success, fail);
+}
+
+// 用戶使用權益及隱私權頁面跳轉
+function goPrivacyPage(url){
+    da.ready(function () {
+       da.createWindow({type: 1, url: url});
+    })
+}
+
+// 正常註冊
+function submit() {
+    mCommon_basicLoadingShow("", true);
+    getUserToken();
+    var url = iamUrl + '/api/iam/v2/user/register';
+    var header = {
+        'Content-Type': 'application/json'
+    };
+    var body = JSON.stringify({
+        Id: $("#email input").val(),
+        name: $("#companyName input").val(),
+        telephone: "",
+        email: $("#email input").val(),
+        verificationCode: $("#vaildCode input").val(),
+        password: $("#password input").val()
+    });
+    var success = function(json) {
+        console.log(json);
+        mCommon_basicLoadingRemove();
+        experienceSubmit();
+    };
+
+    var fail = function(msg) {
+        mCommon_basicLoadingRemove();
+		var tip="";
+		if(msg.responseJSON.message==='验证码校验失败！'){
+		   tip = '驗證碼校驗失敗!';
+		}
+		showWindow('註冊失敗', tip);
+    };
+
+    httpRequest(url, header, body, 'POST', 'json', success, fail);
+}
+
+// 體驗註冊
+function experienceSubmit() {
+    var sidObj = getCode();
+    var url = iamUrl + '/api/iam/v2/user/experienceAccount';
+    var header = {
+        'Content-Type': 'application/json',
+        'digi-middleware-auth-user': userToken
+    };
+    var body = JSON.stringify({
+	    sysId:"demo-app1",
+        userId: $("#email input").val(),
+        roleId: "experience_registed",
+        days: sidObj.days
+    });
+    var success = function(json) {
+        mCommon_basicLoadingRemove();
+        console.log(json);
+        showWindow('註冊成功', "").then(function() {
+		mCommon_basicLoadingShow("", true);
+            if (da.djJsReady) {
+                da.accountConvert({
+                    account: $("#email input").val(),
+                    password: $("#password input").val(),
+                    success: function(data) {mCommon_basicLoadingRemove();},
+                    fail: function(res) {mCommon_basicLoadingRemove();}
+                });
+            }
+        });
+    };
+
+    var fail = function() {
+        mCommon_basicLoadingRemove();
+        showWindow('註冊失敗', "");
+    };
+
+    httpRequest(url, header, body, 'POST', '', success, fail);
+}
+
+function httpRequest(url, header, body, method, dataType, success, fail) {
+    $.ajax({
+        url: url,
+        type: method,
+        dataType: dataType,
+        headers: header,
+        data: body,
+        success: success,
+        error: fail
+    });
+}
+
+function getCode() {
+    let url = window.location.search;
+    let obj = {};
+    let reg = /[?&][^?&]+=[^?&]+/g;
+    let arr = url.match(reg);
+    if (arr) {
+        arr.forEach((item) => {
+        let tempArr = item.substring(1).split('=');
+        let key = decodeURIComponent(tempArr[0]);
+        let val = decodeURIComponent(tempArr[1]);
+        obj[key] = val;
+        });
+    }
+    return obj;
+  }
+
+//固定一屏
+var mCommon_jsFixedOneScreen_setFixedOneScreenObj = new mCommon_jsFixedOneScreen_setFixedOneScreen();
+
+//遮罩层
+var mCommon_basicMask_setMaskObj = new mCommon_basicMask_setMask({
+    zIndex: null, //设置遮罩层级，默认值为100，Number类型，选填，
+    maskContainer: '', //要遮罩的容器，局部遮罩要传入容器，jquery类型,全局遮罩传空字符串，必填
+    maskClickFun: function() {} //点击遮罩层时的回调函数，选填
+});
+
+//弹窗 有確認取消功能提示訊息
+var mCommon_controlPagePopupPromptModal_setTopPositionObj;
+
+//關閉弹窗有確認取消功能提示訊息
+function closecontrolPagePopupPrompt() {
+    mCommon_jsFixedOneScreen_setFixedOneScreenObj.closeFixedOneScreen({
+        scrollVal: null,
+        //scrollTop的值，选填，不填默认开启时的滚动值
+        fixedOneScreenCloseFun: function() {} //取消固定一屏时的回调函数，选填
+    });
+    mCommon_basicMask_setMaskObj.removeMask();
+    mCommon_controlPagePopupPromptModal_setTopPositionObj.closePrompt();
+}
+
+// 帶確認取消的弹框
+function showWindow(titleText, contentText) {
+    var def = $.Deferred();   
+    mCommon_basicMask_setMaskObj.addMask();
+    mCommon_controlPagePopupPromptModal_setTopPositionObj = new mCommon_controlPagePopupPromptModal_setTopPosition({
+        titleText: titleText,
+        //弹框显示的提示标题,字符串类型，必填
+        contentText: $('<p class="mCommon_controlPagePopupPromptModal_textContent wordBreak">' + contentText + '</p>'),
+        //弹框显示的提示内容，jquery类型，选填
+        confirmText: '確定',
+        clickConfirmFun: function() {
+            closecontrolPagePopupPrompt();
+			def.resolve(null);
+        },
+        cancleText: '取消',
+        cancleShow: false,
+        clickCancleFun: function() {},
+        isShow: true,
+        showFun: function() {
+            //alert('显示回调');
+        } //显示时候回调，选填//默认显示弹窗,布尔值，选填
+    });
+	return def;
+}
+
+   //功能提示訊息
+    function showDialog(text) {
+        mCommon_jsFixedOneScreen_setFixedOneScreenObj.openFixedOneScreen({
+            scrollVal: null, //scrollTop的值，选填，不填默认实际滚动值
+            fixedOneScreenOpenFun: function() {} //固定一屏开启时的回调函数，选填
+        });
+
+        new mCommon_controlPagePopupPrompt_setPromptInfo({
+            promptText: text,
+            setTimeVal: 2000,
+            closeFun: function() {
+                    mCommon_basicMask_setMaskObj.removeMask();
+                    //关闭固定一屏
+                    mCommon_jsFixedOneScreen_setFixedOneScreenObj.closeFixedOneScreen({
+                        scrollVal: null, //scrollTop的值，选填，不填默认开启时的滚动值
+                        fixedOneScreenCloseFun: function() {}
+                    });
+                } 
+        });
+    }
+</script>
+
+</html>

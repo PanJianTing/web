@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+	</nav>
+	<div class="btn-group" role="group" style="margin-left:10px;">
+			<button id="dropdownTitle" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  刪除
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+			  <li onclick="changeDropType('1')" style="padding:10px;">全部</a></li>
+			  <li onclick="changeDropType('2')" style="padding:10px;">資料夾</a></li>
+			  <li onclick="changeDropType('3')" style="padding:10px;">檔案</a></li>
+			</ul>
+	</div>
+	
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileId</span>
+		<input type="text" id="fileId" class="form-control" placeholder="刪除文件ID" aria-describedby="basic-addon1">
+	</div>
+	<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="delFile()">刪除</button>
+	</div>
+	<div id="result_txt" style="position:relative; margin-top: 10px; margin-left:10px;">
+	</div>
+
+</div>
+</body>
+	<script>
+	var delType = '0';
+	function changeDropType(type){
+		delType = type;
+		if(delType=='0'){
+			$('#dropdownTitle').text('刪除全部 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}else if(imageType=='1'){
+			$('#dropdownTitle').text('刪除資料夾 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}else{
+			$('#dropdownTitle').text('刪除檔案 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}
+	}
+	
+	function delFile(){ // call print api
+		//console.log('QQ');
+
+		//https://www.google.com.tw/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+		
+		var fileId=$("#fileId").val();
+		
+		da.deleteFile({               
+			type: delType,
+			fileId: fileId, //"fbd498fb-9dd8-4054-a53b-6f905f6fd0d5",
+			filePath:"/home/download/",
+			fileName:"googlelogo_color_272x92dp.png",
+			success: function (res) {
+				$('#result_txt').text('delFile success');
+			},
+			fail: function () {
+				var text = res.reason ;
+				
+				$('#result_txt').text(text);
+			},
+			error: function () {
+				alert("--------error-----");
+			}
+		});
+		
+	}
+
+	</script>
+</html>

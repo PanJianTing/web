@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="MainPage.js"></script>-->
+	<script>
+	
+	function changeDropType(type){
+		var imageType = type;
+		if(imageType=='1'){
+			$('#dropdownTitle').text('開啟相簿 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}else if(imageType=='2'){
+			$('#dropdownTitle').text('開啟相機 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}else{
+			$('#dropdownTitle').text('開啟遮罩相機 ');
+			$('#dropdownTitle').append('<span class="caret"></span>');
+		}
+		
+		chooseImage(imageType);
+	}
+	
+	function chooseImage(type){ // call print api
+		//console.log('QQ');
+		var imageType = type;
+		
+		da.chooseImage({
+			type: imageType,
+			max: 9,
+			isReturnOrgUrls: 1,
+			thumbnailWidth: 1000,
+			success: function (res) {
+				var src_Base64=res[0].thumbData;
+				var src_path=res[0].filePath;
+
+				var src_Img = 'data:image/jpeg;base64,'+src_Base64;
+				$('#showImg').attr('src',src_Img);
+				$('#showPath').text(src_path);
+			},
+			fail: function () {
+				alert("--------fail-----");
+			},
+			error: function () {
+				alert("--------error-----");
+			}
+		});
+		
+		
+	}
+
+	</script>
+	<style>
+	</style>
+</head>
+<body>
+
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+	</nav>
+  
+	<div class="thumbnail" style="width:90%; margin-left:3%;">
+		<div class="btn-group" role="group">
+			<button id="dropdownTitle" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  開啟
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+			  <li onclick="changeDropType('1')" style="padding:10px;">相機</a></li>
+			  <li onclick="changeDropType('2')" style="padding:10px;">相簿</a></li>
+			  <li onclick="changeDropType('3')" style="padding:10px;">遮罩相機</a></li>
+			</ul>
+		</div>
+		
+		<div style="position:relative; margin-top: 10px; margin-left:5px;">
+			<img id="showImg" height="350" width="250" src="">
+		</div>
+		<div id="showPath" style="position:relative; margin-top: 10px; margin-left:10px;">
+		</div>
+	</div>
+	
+</div>
+</body>
+<script>
+
+</script>
+</html>

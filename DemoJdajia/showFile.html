@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Digiwin.Mobile-->
+	<script src="jdajia.js"></script>
+    <!--<script src="digiwin.mobile.js"></script>-->
+    <!--jQuery-->    
+    <script src="js/jquery.min.js"></script>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <link href="css/docs.min.css" rel="stylesheet">	
+	<!--Bootstrap-table--> 
+	<link href="css/bootstrap-table.min.css" rel="stylesheet">
+    <script src="js/bootstrap-table.min.js"></script> 
+    <script src="js/bootstrap-table-zh-TW.min.js"></script> 
+    <!--Script-->
+    <script src="IMGDemo.js"></script>
+	<!--<script src="browseFolder.js"></script>
+	<script src="MainPage.js"></script>-->
+
+	<style>
+	</style>
+</head>
+<body>
+<div style="position:relative;">
+	<!--nav bar-->
+	<nav class="navbar navbar-default" role="navigation">
+		<a class="navbar-brand" href="#">鼎捷測試</a>
+		
+	</nav>
+	
+<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+	
+			
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileUrl</span>
+		<input type="text" id="fileUrl" class="form-control" placeholder="下載的完整URL" aria-describedby="basic-addon1">
+	</div>
+	<div class="input-group" style="margin-left:10px; width:80%;">
+		<span class="input-group-addon" id="basic-addon1" style="width:30%">fileId</span>
+		<input type="text" id="fileId" class="form-control" placeholder="下載文件ID" aria-describedby="basic-addon1">
+	</div>
+</div>
+
+		<div style="position:relative; margin-top: 10px; margin-left:10px;">			
+			<button class="btn btn-primary" onclick="showFile()">下載</button>
+	</div>
+</div>
+</body>
+	<script>
+	
+
+	function showFile(){
+		var fileUrl=$("#fileUrl").val();
+        var fileId=$("#fileId").val();
+	   
+	    da.ready(function () {
+            da.showFile({
+			    fileID: fileId, 
+			    fileName: 'test.jpg',
+			    fileSize: '',
+			    filePath:fileUrl
+           })
+	 })
+}
+	
+	</script>
+</html>
